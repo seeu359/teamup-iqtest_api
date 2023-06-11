@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "IQ/EQ test API for TeamUP"
 authors = ["a.cheremushkin <a.ch3re359@yandex.ru>"]
 readme = "README.md"
-packages = [{include = "team_up_test_task"}]
+packages = [{include = "app"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
