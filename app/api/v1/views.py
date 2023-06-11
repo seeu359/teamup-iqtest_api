@@ -1,6 +1,8 @@
 from datetime import datetime
 
-from rest_framework import generics
+from django.db.models import QuerySet
+from rest_framework import generics, status
+from rest_framework.request import Request
 from rest_framework.response import Response
 
 from .. import models
@@ -26,11 +28,17 @@ class RetrieveTestApiView(generics.GenericAPIView):
     created_at = None
     serializer_class = serializers.TestSerializer
 
-    def get(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+    def get(self, request: Request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.query_params)
         serializer.is_valid(raise_exception=True)
 
         qs = self.get_queryset()
+        if not qs:
+            return Response(
+                'The test with this login was not found',
+                status=status.HTTP_404_NOT_FOUND
+            )
+
         self.created_at = qs.first().created_at
         res = {
             'login': qs.first().login,
@@ -41,10 +49,10 @@ class RetrieveTestApiView(generics.GenericAPIView):
         return Response(res)
 
     def get_queryset(self):
-        login = self.request.data.get('login')
+        login = self.request.query_params.get('login')
         return models.Test.objects.filter(login=login).select_related('iqtest', 'eqtest')
 
-    def get_response(self, qs) -> dict:
+    def get_response(self, qs: QuerySet) -> dict:
         res = {}
 
         for test in self.test_list:

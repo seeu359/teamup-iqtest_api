@@ -20,4 +20,3 @@ class IQTest(mixins.UUIDMixin, mixins.TestFieldsMixin):
 class EQTest(mixins.UUIDMixin, mixins.TestFieldsMixin):
     test = models.OneToOneField(Test, on_delete=models.CASCADE)
     result = ArrayField(models.CharField(max_length=1, blank=False,  null=False), size=5)
-

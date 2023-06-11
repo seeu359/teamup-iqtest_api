@@ -102,18 +102,13 @@ paths:
   /api/v1/test/detail/:
     get:
       description: 'Shows the results of the passed tests'
-      requestBody:
-        required: true
-        content:
-          application/json:
+      parameters:
+          - name: login
+            in: query
+            description: Логин для отображения тестов
+            required: true
             schema:
-              type: object
-              properties:
-                login:
-                  type: string
-                  description: Логин для отображения результатов тестов
-                  example: GPiBEZeGYm
-
+              type: string
       responses:
         "200":
           description: ""

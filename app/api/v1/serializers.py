@@ -11,7 +11,9 @@ class TestSerializer(serializers.Serializer):
     def validate_login(self, login: str) -> str | None:
         if domain.is_valid_login(login):
             return login
-        raise serializers.ValidationError('Login should contain only letters and be 10 characters long')
+        raise serializers.ValidationError(
+            'Login should contain only letters and be 10 characters long'
+        )
 
 
 class CreateTestSerializer(serializers.ModelSerializer):
