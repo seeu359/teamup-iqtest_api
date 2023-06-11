@@ -2,13 +2,15 @@
 
 ### Инструкция по запуску:
 
+      Пример файла с переменными окружения находится в app/.env.example
+
 1. `$ cd teamup-iqtest_api`
 
 
 2. Создать в `app/` файл с переменными окружения(.env) и обязательно установить:
    * DJANGO_SECRET_KEY
-   * ALLOWED_HOSTS: Можно скопировать из `.env.examples`
-   * POSTGRES_URL: `postgres://<USER>:<YOUR_PASSWORD>@postgres_db:5432/<YOUR_DB_NAME>`, либо скопировать из `.env.examples`
+   * ALLOWED_HOSTS: Можно скопировать из `.env.example`
+   * POSTGRES_URL: `postgres://<USER>:<YOUR_PASSWORD>@postgres_db:5432/<YOUR_DB_NAME>`, либо скопировать из `.env.example`
    * DEBUG: `True` или `False` 
    * POSTGRES_USER=<USER>
    * POSTGRES_PASSWORD=<YOUR_PASSWORD>
