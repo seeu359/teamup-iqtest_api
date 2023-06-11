@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: OpenAPI for TeamUP Test Task
+  version: v1
+servers:
+  - url: http://127.0.0.1:8000
+paths:
+  /api/v1/test/:
+    post:
+      description: "Create test objects and return login"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  login:
+                    type: string
+                    description: Логин для прохождения тестов
+                    example: GPiBEZeGYm
+
+
+  /api/v1/test/iq/:
+    post:
+      description: "Save iq test result by test login"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type:  object
+              properties:
+                login:
+                  type: string
+                result:
+                  type: integer
+              required:
+                - login
+                - result
+            example:
+              login: GPiBEZeGYm
+              result: 26
+
+
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  login:
+                    type: string
+                    description: Логин для прохождения теста
+                    example: GPiBEZeGYm
+                  result:
+                    type: integer
+                    description: Набранные баллы
+                    example: 45
+
+  /api/v1/test/eq/:
+    post:
+      description: "Save eq test result by test login"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                result:
+                  type: array
+              required:
+                - login
+                - result
+            example:
+              login: GPiBEZeGYm
+              result: ["A", "B", "C", "D", "E"]
+
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  login:
+                    type: string
+                    description: Логин для прохождения теста
+                    example: GPiBEZeGYm
+                  result:
+                    type: array
+                    description: Результат теста
+                    example: ["A", "B", "C", "D", "E"]
+
+  /api/v1/test/detail/:
+    get:
+      description: 'Shows the results of the passed tests'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                  description: Логин для отображения результатов тестов
+                  example: GPiBEZeGYm
+
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  login:
+                    type: string
+                    description: Логин теста
+                    example: GPiBEZeGYm
+                  tests:
+                    type: object
+                    description: Результаты тестов
+                    properties:
+                      iqtest:
+                        type: object
+                        description: IQ Test
+                        properties:
+                          result:
+                            type: integer
+                            description: Результат IQ-теста
+                            example: 48
+                          exc_time:
+                            type: string
+                            description: Время, потраченное на прохождение IQ-теста
+                            example: 00:59:58
+                      eqtest:
+                        type: object
+                        description: EQ Test
+                        properties:
+                          result:
+                            type: array
+                            description: Результат EQ-теста
+                            example: ["A", "B", "C", "D", "E"]
+                          exc_time:
+                            type: string
+                            example: 01:59:58
+                            description: Время, потраченное на прохождение EQ-теста
+
+
