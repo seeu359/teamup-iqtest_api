@@ -21,3 +21,13 @@ services:
       - app/.env
     ports:
       - '5432:5432'
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-ui
+    volumes:
+      - ./openapi/openapi.yaml:/swagger.yaml
+    environment:
+      -  SWAGGER_JSON=/swagger.yaml
+    ports:
+      - '8080:8080'
