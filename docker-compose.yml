@@ -1,18 +1,4 @@
-version: '3'
 services:
-  django:
-    build: ./app
-    container_name: team-up-django
-    command: >
-      bash -c "python3 manage.py makemigrations && python3 manage.py migrate && uwsgi --ini uwsgi.ini"
-    env_file:
-      - app/.env
-    ports:
-      - '8000:8000'
-    depends_on:
-      - postgres_db
-    restart: always
-
   postgres_db:
     image: postgres:15
     container_name: team-up-postgres
@@ -23,6 +9,17 @@ services:
     ports:
       - '5432:5432'
 
+  django:
+    build: ./app
+    container_name: team-up-django
+    env_file:
+      - app/.env
+    ports:
+      - '8000:8000'
+    depends_on:
+      - postgres_db
+    restart: always
+
   swagger:
     image: swaggerapi/swagger-ui
     container_name: team-up-swagger-ui
@@ -31,4 +28,4 @@ services:
     environment:
       -  SWAGGER_JSON=/swagger.yaml
     ports:
-      - '8080:8080'
+      - '8089:8080'
